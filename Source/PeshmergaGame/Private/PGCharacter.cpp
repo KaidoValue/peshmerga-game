@@ -11,6 +11,8 @@
 #include "InputModifiers.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PlayerController.h"
+#include "Engine/LocalPlayer.h"
+#include "Engine/World.h"
 
 APGCharacter::APGCharacter()
 {
@@ -32,7 +34,7 @@ APGCharacter::APGCharacter()
 	UCharacterMovementComponent* MoveComp = GetCharacterMovement();
 	MoveComp->MaxWalkSpeed = WalkSpeed;
 	MoveComp->MaxWalkSpeedCrouched = 190.f;
-	MoveComp->NavAgentProps.bCanCrouch = true;
+	MoveComp->GetNavAgentPropertiesRef().bCanCrouch = true;
 	MoveComp->bCanWalkOffLedgesWhenCrouching = true;
 	MoveComp->JumpZVelocity = 380.f;
 	MoveComp->AirControl = 0.15f;

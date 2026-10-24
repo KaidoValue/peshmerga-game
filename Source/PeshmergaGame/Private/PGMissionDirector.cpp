@@ -15,6 +15,8 @@
 #include "NiagaraFunctionLibrary.h"
 #include "Sound/SoundBase.h"
 #include "TimerManager.h"
+#include "Engine/Engine.h"
+#include "Engine/World.h"
 
 APGMissionDirector::APGMissionDirector()
 {
@@ -29,11 +31,8 @@ APGMissionDirector* APGMissionDirector::Get(const UObject* WorldContext)
 	{
 		return nullptr;
 	}
-	for (TActorIterator<APGMissionDirector> It(World); It; ++It)
-	{
-		return *It;
-	}
-	return nullptr;
+	TActorIterator<APGMissionDirector> It(World);
+	return It ? *It : nullptr;
 }
 
 void APGMissionDirector::BeginPlay()
