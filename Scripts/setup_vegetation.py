@@ -13,7 +13,7 @@ Regeln:
   - Felsen an steilen Haengen, einzelne auch an mittleren
   - Bueschel und Gras auf flachen Stellen, Gras dicht rund um den Talweg
   - Baeume selten, nur flach und nicht hoch ueber dem Talboden
-  - nichts im Lager (40 m um die Mitte), auf dem Talweg nach Sueden,
+  - nichts im Lager (40 m um die Mitte, nur Gras zwischen den Huetten), auf dem Talweg nach Sueden,
     an den Felsdaechern und bei den Hirtenhuetten
 
 Alles kommt als Instanzen (HISM) in den Ordner "Vegetation" der Karte. Es kann
@@ -54,7 +54,7 @@ GROUPS = {
         "shrub_02": dict(weight=2, scale=(1.0, 1.6), align=0.15, sink=0.03),
     },
     "gras": {
-        "grass_medium_02": dict(weight=1, scale=(3.0, 5.0), align=0.6, sink=0.0),
+        "grass_medium_02": dict(weight=1, scale=(4.0, 7.0), align=0.6, sink=0.0),
     },
     "baum": {
         "tree_small_02": dict(weight=1, scale=(1.6, 2.6), align=0.0, sink=0.02),
@@ -70,13 +70,16 @@ RULES = {
                  radius=1500, gap=4.0, cluster=(1, 0), collision=True, cull=0),
     "busch": dict(count=1600, slope=(0, 30), height=(-400, 700), near=0.85, spread=100,
                   radius=1200, gap=2.0, cluster=(5, 5.0), collision=False, cull=50000),
-    "gras": dict(count=14000, slope=(0, 28), height=(-400, 900), near=1.0, spread=60,
-                 radius=600, gap=0.0, cluster=(14, 2.5), collision=False, cull=12000),
+    "gras": dict(count=22000, slope=(0, 28), height=(-400, 900), near=1.0, spread=55,
+                 radius=600, gap=0.0, cluster=(16, 2.5), collision=False, cull=15000, camp=False),
     "baum": dict(count=160, slope=(0, 28), height=(-300, 450), near=0.8, spread=140,
                  radius=1400, gap=12.0, cluster=(3, 14.0), collision=True, cull=0),
 }
 
 CAMP_RADIUS = 40.0
+# Gras darf ins Lager, aber nicht in Huetten, Feuerstelle und Quelle
+CAMP_SPOTS = [(-12, -10, 4.0), (13, -6, 4.5), (-4, 14, 4.0), (16, 12, 4.0), (3, -2, 3.0), (17, 22, 3.5),
+              (-7.4, 10.1, 1.5)]
 PATH_WIDTH = 7.0  # Abstand links und rechts vom Talweg
 # Talweg aus setup_m01.py, vom Lager bis zu den Hirtenhuetten
 PATH = [(0, 0), (0, -40), (14.3, -90), (16, -140), (16, -190), (16, -240), (16, -290),
@@ -257,10 +260,12 @@ def dist_path(x, z):
     return min(dist_segment(x, z, a[0], a[1], b[0], b[1]) for a, b in zip(PATH, PATH[1:]))
 
 
-def blocked(x, z):
+def blocked(x, z, camp=True):
     if abs(x) > HALF or abs(z) > HALF:
         return True
-    if math.hypot(x, z) < CAMP_RADIUS:
+    if camp and math.hypot(x, z) < CAMP_RADIUS:
+        return True
+    if any(math.hypot(x - kx, z - kz) < r for kx, kz, r in CAMP_SPOTS):
         return True
     if any(math.hypot(x - kx, z - kz) < r for kx, kz, r in KEEP_OUT):
         return True
@@ -343,7 +348,7 @@ def scatter(group, models, rule, rng):
                 break
             x = cx + (rng.gauss(0.0, cluster_r) if k else 0.0)
             z = cz + (rng.gauss(0.0, cluster_r) if k else 0.0)
-            if blocked(x, z) or not spacing.ok(x, z):
+            if blocked(x, z, rule.get("camp", True)) or not spacing.ok(x, z):
                 continue
             hit = probe(x, z)
             if hit is None:
