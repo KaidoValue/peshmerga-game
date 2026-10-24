@@ -1,8 +1,8 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "5.5",
+	"EngineAssociation": "5.8",
 	"Category": "",
-	"Description": "Peshmerga – Zwei Wege. Story-Kampagne im Zagros-Gebirge.",
+	"Description": "Peshmerga - Zwei Wege. Story-Kampagne im Zagros-Gebirge.",
 	"Modules": [
 		{
 			"Name": "PeshmergaGame",
