@@ -9,7 +9,7 @@
 class UStaticMeshComponent;
 class USceneComponent;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPGOnInteracted, APGInteractableActor*, Actor, APGCharacter*, Instigator);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPGOnInteracted, APGInteractableActor*, Actor, APGCharacter*, User);
 
 /**
  * Quelle, Person (Dara, Azad), Funkgerät oder Verwundeter.
@@ -46,7 +46,7 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Interaktion")
 	FPGOnInteracted OnInteracted;
 
-	virtual bool CanInteract_Implementation(APGCharacter* Instigator) const override;
-	virtual FText GetPrompt_Implementation(APGCharacter* Instigator) const override;
-	virtual void Interact_Implementation(APGCharacter* Instigator) override;
+	virtual bool CanInteract_Implementation(APGCharacter* User) const override;
+	virtual FText GetPrompt_Implementation(APGCharacter* User) const override;
+	virtual void Interact_Implementation(APGCharacter* User) override;
 };

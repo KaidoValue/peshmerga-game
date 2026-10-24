@@ -15,21 +15,21 @@ APGInteractableActor::APGInteractableActor()
 	Mesh->SetCollisionProfileName(TEXT("PGInteract"));
 }
 
-bool APGInteractableActor::CanInteract_Implementation(APGCharacter* Instigator) const
+bool APGInteractableActor::CanInteract_Implementation(APGCharacter* User) const
 {
 	const APGMissionDirector* Director = APGMissionDirector::Get(this);
-	if (!Director || !Instigator || !ActiveSteps.Contains(Director->GetStep()) || bRescued)
+	if (!Director || !User || !ActiveSteps.Contains(Director->GetStep()) || bRescued)
 	{
 		return false;
 	}
 	if (Kind == EPGInteractKind::Wounded)
 	{
-		return !bCarried && !Instigator->IsCarrying();
+		return !bCarried && !User->IsCarrying();
 	}
 	return !Director->IsSpeaking();
 }
 
-FText APGInteractableActor::GetPrompt_Implementation(APGCharacter* Instigator) const
+FText APGInteractableActor::GetPrompt_Implementation(APGCharacter* User) const
 {
 	const APGMissionDirector* Director = APGMissionDirector::Get(this);
 	if (!Director)
@@ -44,15 +44,15 @@ FText APGInteractableActor::GetPrompt_Implementation(APGCharacter* Instigator) c
 	}
 }
 
-void APGInteractableActor::Interact_Implementation(APGCharacter* Instigator)
+void APGInteractableActor::Interact_Implementation(APGCharacter* User)
 {
 	if (Kind == EPGInteractKind::Wounded)
 	{
-		Instigator->StartCarry(this);
+		User->StartCarry(this);
 	}
-	OnInteracted.Broadcast(this, Instigator);
+	OnInteracted.Broadcast(this, User);
 	if (APGMissionDirector* Director = APGMissionDirector::Get(this))
 	{
-		Director->NotifyInteracted(this, Instigator);
+		Director->NotifyInteracted(this, User);
 	}
 }
