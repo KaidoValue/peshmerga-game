@@ -5,13 +5,29 @@ dazwischen, Fels an steilen Haengen.
 
 Im Editor: Werkzeuge -> Python-Skript ausfuehren... -> Scripts/setup_landscape.py
 
-Das Skript sucht unter /Game nach Oberflaechen-Texturen (z. B. Megascans aus
-Fab). Ordner- oder Dateinamen mit grass/meadow/moss zaehlen als Gras,
+Zuerst importiert es die Foto-Texturen aus RawData/Textures (Gras, steinige
+Erde, Fels von Poly Haven, CC0) nach /Game/Textures/Boden. Fehlen die Dateien,
+laedt es sie selbst von polyhaven.com herunter.
+
+Danach sucht das Skript unter /Game nach Oberflaechen-Texturen; die eigenen
+aus /Game/Textures/Boden haben Vorrang vor anderen (z. B. Megascans aus Fab). Ordner- oder Dateinamen mit grass/meadow/moss zaehlen als Gras,
 soil/ground/dirt/gravel/mud als Erde und rock/cliff/stone als Fels. Fehlt
 eine Sorte, nimmt es eine passende Farbe, damit der Boden trotzdem nicht
 mehr grau ist. Nach dem Holen neuer Texturen einfach erneut ausfuehren.
 """
+import os
+import urllib.request
+
 import unreal
+
+TEX_DIR = "/Game/Textures/Boden"
+# Datei in RawData/Textures -> Poly-Haven-Asset (2K, Normal im DirectX-Format)
+POLYHAVEN = {
+    "T_Grass": "grass_ground",
+    "T_Soil": "rocky_trail_02",
+    "T_Rock": "marble_cliff_05",
+}
+PH_URL = "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/{a}/{a}_{m}_2k.jpg"
 
 MAT_DIR = "/Game/Materials"
 MAT_NAME = "M_Qandil_Landschaft"
@@ -39,6 +55,57 @@ def log(msg):
     unreal.log("[Landschaft] " + msg)
 
 
+# ------------------------------------------------------------------ Texturen importieren
+
+raw_dir = os.path.join(os.path.abspath(unreal.Paths.project_dir()), "RawData", "Textures")
+
+
+def raw_file(name, ph_asset, ph_map):
+    """Pfad zur Bilddatei; laedt sie von Poly Haven, falls sie fehlt."""
+    f = os.path.join(raw_dir, name + ".jpg")
+    if not os.path.isfile(f):
+        url = PH_URL.format(a=ph_asset, m=ph_map)
+        log("Lade " + url)
+        try:
+            os.makedirs(raw_dir, exist_ok=True)
+            urllib.request.urlretrieve(url, f + ".part")
+            os.replace(f + ".part", f)
+        except Exception as e:
+            log("Download fehlgeschlagen: %s" % e)
+            return None
+    return f
+
+
+tasks = []
+for base, ph in POLYHAVEN.items():
+    for suffix, ph_map in (("_BaseColor", "diff"), ("_Normal", "nor_dx")):
+        f = raw_file(base + suffix, ph, ph_map)
+        if not f:
+            continue
+        t = unreal.AssetImportTask()
+        t.set_editor_property("filename", f)
+        t.set_editor_property("destination_path", TEX_DIR)
+        t.set_editor_property("destination_name", base + suffix)
+        t.set_editor_property("replace_existing", True)
+        t.set_editor_property("automated", True)
+        t.set_editor_property("save", False)
+        tasks.append(t)
+if tasks:
+    unreal.AssetToolsHelpers.get_asset_tools().import_asset_tasks(tasks)
+for t in tasks:
+    for p in t.get_editor_property("imported_object_paths"):
+        tex = unreal.load_asset(p)
+        if not isinstance(tex, unreal.Texture2D):
+            continue
+        if str(tex.get_name()).endswith("_Normal"):
+            tex.set_editor_property("compression_settings", unreal.TextureCompressionSettings.TC_NORMALMAP)
+            tex.set_editor_property("srgb", False)
+        else:
+            tex.set_editor_property("srgb", True)
+        assets.save_loaded_asset(tex)
+        log("Importiert: " + p)
+
+
 # ------------------------------------------------------------------ Texturen finden
 
 def class_name(data):
@@ -60,7 +127,9 @@ def is_normal(name):
 
 registry = unreal.AssetRegistryHelpers.get_asset_registry()
 found = {k: {} for k in KINDS}
-for data in registry.get_assets_by_path("/Game", recursive=True):
+# eigene Boden-Texturen zuerst, damit sie gewinnen
+own = list(registry.get_assets_by_path(TEX_DIR, recursive=True))
+for data in own + list(registry.get_assets_by_path("/Game", recursive=True)):
     if class_name(data) != "Texture2D":
         continue
     path = str(data.package_name)
