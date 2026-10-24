@@ -1,0 +1,19 @@
+{
+  "name": "Qandil_Berfin",
+  "center_lat": 36.57584,
+  "center_lon": 44.96738,
+  "size_m": 4000,
+  "resolution": 1009,
+  "meters_per_pixel": 3.968,
+  "min_elevation_m": 1591.0,
+  "max_elevation_m": 3190.1,
+  "ue_landscape_scale": {
+    "X": 396.83,
+    "Y": 396.83,
+    "Z": 312.32
+  },
+  "ue_location_z_cm": 0.0,
+  "source": "AWS Terrain Tiles (Terrarium), based on SRTM ~30 m; bicubically upsampled",
+  "north": "top of image (-Y in Unreal by default import)",
+  "note": "Fiktives Lager Berfin im Talboden in der Bildmitte; Schlucht nach Sueden (unten) zur Hirtenhuette ca. 370 m."
+}
