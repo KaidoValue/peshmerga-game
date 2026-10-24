@@ -3,7 +3,7 @@
 Baut Mission 01 "Feuer ueber Qandil" in die geoeffnete Karte.
 
 Voraussetzung: Die Landschaft Qandil_Berfin ist schon importiert (siehe README).
-Im Editor: Datei -> Python-Skript ausfuehren... -> Scripts/setup_m01.py
+Im Editor: Werkzeuge -> Python-Skript ausfuehren... -> Scripts/setup_m01.py
 
 Das Skript
   - importiert die Dialoge (Deutsch/Sorani) als Datentabellen nach /Game/Data,
