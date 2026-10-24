@@ -45,19 +45,19 @@ raw_dir = os.path.join(os.path.abspath(unreal.Paths.project_dir()), "RawData", "
 # sich dem Hang anpasst (0 = senkrecht, 1 = ganz), Einsinken (Anteil der Hoehe)
 GROUPS = {
     "fels": {
-        "boulder_01": dict(weight=5, scale=(0.8, 2.6), align=0.4, sink=0.25),
-        "rock_face_02": dict(weight=3, scale=(0.7, 1.8), align=0.7, sink=0.30),
-        "rock_face_01": dict(weight=2, scale=(0.6, 1.4), align=0.9, sink=0.30, min_slope=34),
+        "boulder_01": dict(weight=6, scale=(1.4, 3.2), align=0.8, sink=0.35),
+        # Felsplatte nur tief eingesunken als Aufschluss an sehr steilen Stellen
+        "rock_face_02": dict(weight=1, scale=(1.2, 2.2), align=1.0, sink=0.45, min_slope=32),
     },
     "busch": {
-        "searsia_lucida": dict(weight=3, scale=(0.6, 1.2), align=0.15, sink=0.05),
-        "shrub_02": dict(weight=2, scale=(0.6, 1.0), align=0.15, sink=0.03),
+        "searsia_lucida": dict(weight=3, scale=(1.0, 1.8), align=0.15, sink=0.05),
+        "shrub_02": dict(weight=2, scale=(1.0, 1.6), align=0.15, sink=0.03),
     },
     "gras": {
-        "grass_medium_02": dict(weight=1, scale=(1.6, 3.0), align=0.6, sink=0.0),
+        "grass_medium_02": dict(weight=1, scale=(3.0, 5.0), align=0.6, sink=0.0),
     },
     "baum": {
-        "tree_small_02": dict(weight=1, scale=(0.9, 1.6), align=0.0, sink=0.0),
+        "tree_small_02": dict(weight=1, scale=(1.6, 2.6), align=0.0, sink=0.02),
     },
 }
 
@@ -68,12 +68,12 @@ GROUPS = {
 RULES = {
     "fels": dict(count=900, slope=(18, 90), steep=30, height=(-400, 1400), near=0.6, spread=220,
                  radius=1500, gap=4.0, cluster=(1, 0), collision=True, cull=0),
-    "busch": dict(count=900, slope=(0, 22), height=(-400, 700), near=0.7, spread=160,
-                  radius=1200, gap=2.5, cluster=(4, 6.0), collision=False, cull=40000),
-    "gras": dict(count=4000, slope=(0, 18), height=(-400, 900), near=1.0, spread=90,
-                 radius=600, gap=0.0, cluster=(10, 3.5), collision=False, cull=9000),
-    "baum": dict(count=110, slope=(0, 20), height=(-300, 400), near=0.6, spread=250,
-                 radius=1400, gap=15.0, cluster=(1, 0), collision=True, cull=0),
+    "busch": dict(count=1600, slope=(0, 30), height=(-400, 700), near=0.85, spread=100,
+                  radius=1200, gap=2.0, cluster=(5, 5.0), collision=False, cull=50000),
+    "gras": dict(count=14000, slope=(0, 28), height=(-400, 900), near=1.0, spread=60,
+                 radius=600, gap=0.0, cluster=(14, 2.5), collision=False, cull=12000),
+    "baum": dict(count=160, slope=(0, 28), height=(-300, 450), near=0.8, spread=140,
+                 radius=1400, gap=12.0, cluster=(3, 14.0), collision=True, cull=0),
 }
 
 CAMP_RADIUS = 40.0
@@ -314,8 +314,11 @@ def transform(rng, m, p, n):
     tilt = unreal.MathLibrary.make_rot_from_z(up)
     spin = unreal.Rotator(roll=0.0, pitch=0.0, yaw=rng.uniform(0.0, 360.0))
     r = unreal.MathLibrary.compose_rotators(spin, tilt)
-    z = p.z - m["bottom"] * s - m["sink"] * m["height"] * s
-    return unreal.Transform(location=unreal.Vector(p.x, p.y, z), rotation=r,
+    # Fuss auf den Boden, dann entlang der geneigten Hochachse einsinken lassen
+    ln = math.sqrt(up.x * up.x + up.y * up.y + up.z * up.z)
+    d = -(m["bottom"] + m["sink"] * m["height"]) * s / ln
+    loc = unreal.Vector(p.x + up.x * d, p.y + up.y * d, p.z + up.z * d)
+    return unreal.Transform(location=loc, rotation=r,
                             scale=unreal.Vector(s, s, s))
 
 
