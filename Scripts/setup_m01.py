@@ -258,7 +258,7 @@ block("Hoehle_Rueckwand", -34.5, 2, (1, 6, 3.2), yaw=8)
 # ------------------------------------------------------------------ Figuren
 
 spring = interactable("Quelle", 17, 22, unreal.PGInteractKind.WATER, [unreal.PGMissionStep.WATER], CYLINDER, (3, 3, 0.2), folder="Mission01/Lager")
-dara = interactable("Dara", 4.5, -4.2, unreal.PGInteractKind.TALK, [unreal.PGMissionStep.TEA, unreal.PGMissionStep.RETURN], CYLINDER, (0.5, 0.5, 1.75), yaw=-137)
+dara = interactable("Ava", 4.5, -4.2, unreal.PGInteractKind.TALK, [unreal.PGMissionStep.TEA, unreal.PGMissionStep.RETURN], CYLINDER, (0.5, 0.5, 1.75), yaw=-137)
 azad = interactable("Azad", -7, 9, unreal.PGInteractKind.TALK, [unreal.PGMissionStep.RADIO], CYLINDER, (0.5, 0.5, 1.8), yaw=149)
 radio = interactable("Funkgeraet", -7.4, 10.1, unreal.PGInteractKind.RADIO, [unreal.PGMissionStep.RADIO], CUBE, (0.4, 0.3, 0.25), up=63)
 
@@ -325,7 +325,7 @@ hutB = block("Hirtenhuette_B", HUT_B[0], HUT_B[1], (4.5, 4, 2.4), folder="Missio
 hut_marker = marker("Hirtenhuette", HUT_A[0], HUT_A[1])
 trigger("Trigger_Huette", unreal.PGMissionTrigger, HUT_A[0], HUT_A[1], (9, 9, 4), "Hut")
 night_start = marker("Nacht_Start", HUT_A[0] + 1.5, HUT_A[1] + 4.5, up=110, yaw=90)
-night_dara = marker("Nacht_Dara", HUT_A[0] - 1, HUT_A[1] + 3, up=0)
+night_dara = marker("Nacht_Ava", HUT_A[0] - 1, HUT_A[1] + 3, up=0)
 listen = marker("Lauschplatz", HUT_B[0], HUT_B[1] - 4.2)
 trigger("Trigger_Lauschen", unreal.PGMissionTrigger, HUT_B[0], HUT_B[1] - 4.2, (2.5, 1.8, 2), "Listen")
 

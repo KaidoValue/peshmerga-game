@@ -1,11 +1,11 @@
 # Mission 01 „Feuer über Qandil“ – Karte aufbauen
 
 Sommer 2015, Lager Berfîn in einem Seitental des Qandil-Gebirges. Rojhat holt
-Wasser, bringt Dara Tee, hilft Azad am Funkgerät. Cemal schickt Baran und Kawa
+Wasser, bringt Ava Tee, hilft Azad am Funkgerät. Cemal schickt Baran und Kawa
 ohne Funkgerät ins Tal. Dann schlägt es dreimal ein. Der Angreifer wird nie
-gezeigt. Rojhat trägt Verwundete in die Höhle, flieht mit Dara vor der
+gezeigt. Rojhat trägt Verwundete in die Höhle, flieht mit Ava vor der
 Wärmebild-Drohne zur Hirtenhütte und hört in der Nacht, wie Cemal am
-Satellitentelefon mit „Direktorat 7“ spricht. Am Morgen entscheidet er: Dara
+Satellitentelefon mit „Direktorat 7“ spricht. Am Morgen entscheidet er: Ava
 alles erzählen oder schweigen.
 
 ## Ablauf im Code
@@ -16,18 +16,18 @@ alles erzählen oder schweigen.
 |---|---|---|
 | Intro | Einblendung „Qandil-Gebirge · Sommer 2015“ | Start |
 | Water | Ziel: Wasser an der Quelle | 4,5 s nach Start |
-| Tea | Ziel: Dara den Tee bringen | E an der Quelle |
-| Radio | Dialog „tea“, dann Ziel: Azad am Funkgerät | E bei Dara |
+| Tea | Ziel: Ava den Tee bringen | E an der Quelle |
+| Radio | Dialog „tea“, dann Ziel: Azad am Funkgerät | E bei Ava |
 | Attack | Dialog „radio“, 6 s Stille, drei Einschläge | E am Funkgerät oder bei Azad |
 | Cave | Tinnitus, gedämpfter Ton, „Drohne! Alle in die Höhle!“ | erster Einschlag |
 | Wounded | 150 s, Verwundete einzeln in die Höhle tragen | Höhle betreten |
 | Escape | Drohne aktiv, Felsdächer schützen, Ziel Hirtenhütte | alle gerettet oder Zeit um |
-| Night | Abblende, Nacht, Dara in der Hütte | Hütten-Trigger erreicht |
+| Night | Abblende, Nacht, Ava in der Hütte | Hütten-Trigger erreicht |
 | Listen | Geduckt (C) hinter Hütte B: vier Sätze am Telefon | Dialog „night“ fertig |
-| Return | Zurück zu Dara | alle vier Sätze gehört |
-| Choice | 1 = erzählen, 2 = schweigen | E bei Dara |
+| Return | Zurück zu Ava | alle vier Sätze gehört |
+| Choice | 1 = erzählen, 2 = schweigen | E bei Ava |
 | Dawn | Morgengrauen, Stoffmarke im Schutt | nach der Antwort |
-| Finished | Spielstand: `bM01ToldDara`, `M01SavedWounded` | 6 s später |
+| Finished | Spielstand: `bM01ToldAva`, `M01SavedWounded` | 6 s später |
 
 Wird Rojhat von der Drohne gesehen, startet er am Höhlenausgang neu. Sieht
 ihn die Wache in der Nacht, startet er an der Hütte A neu.
@@ -74,7 +74,7 @@ Aus dem *Place Actors*-Panel (Suche nach „PG“):
 | Objekt | Klasse | Einstellungen |
 |---|---|---|
 | Quelle | PGInteractableActor | Kind = Water, Active Steps = Water |
-| Dara | PGInteractableActor | Kind = Talk, Active Steps = Tea, Return. MetaHuman als Child Actor |
+| Ava | PGInteractableActor | Kind = Talk, Active Steps = Tea, Return. MetaHuman als Child Actor |
 | Azad | PGInteractableActor | Kind = Talk, Active Steps = Radio |
 | Funkgerät | PGInteractableActor | Kind = Radio, Active Steps = Radio |
 | 3 Verwundete | PGInteractableActor | Kind = Wounded, Active Steps = Wounded. Draußen zwischen den Hütten verteilt |
@@ -89,7 +89,7 @@ Aus dem *Place Actors*-Panel (Suche nach „PG“):
 Leere Actors (*Empty Actor* oder *Target Point*) als Punkte:
 `ImpactPoints` (drei Hütten im Lager), `CaveMarker`, `CaveDropPoints` (drei
 Liegeplätze in der Höhle), `EscapeCheckpoint` (Höhlenausgang), `HutMarker`,
-`NightPlayerStart` (in Hütte A), `NightDaraPoint`, `ListenMarker`.
+`NightPlayerStart` (in Hütte A), `NightAvaPoint`, `ListenMarker`.
 
 Cemal, Baran, Kawa und die übrigen Kämpfer im Lager kommen in
 `HideAfterAttack`. Nach dem ersten Einschlag sind sie fort.
@@ -124,7 +124,7 @@ Deutsch). Für Sorani:
 ## 6. Prüfliste
 
 * [ ] Start: Einblendung, dann Ziel „Hol Wasser an der Quelle“.
-* [ ] Quelle → Dara → Funkgerät in dieser Reihenfolge, sonst keine Reaktion.
+* [ ] Quelle → Ava → Funkgerät in dieser Reihenfolge, sonst keine Reaktion.
 * [ ] Drei Einschläge, Tinnitus, Lager leer bis auf die Verwundeten.
 * [ ] Verwundete tragen (langsamer, kein Rennen), in der Höhle ablegen, Zähler steigt.
 * [ ] Nach 150 s geht es auch mit weniger Geretteten weiter.
