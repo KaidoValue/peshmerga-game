@@ -34,10 +34,11 @@ ihn die Wache in der Nacht, startet er an der Hütte A neu.
 
 ## Schnellweg: alles per Skript
 
-Nach dem Import der Landschaft (Abschnitt 1) im Editor **Datei → Python-Skript ausführen…**
-und `Scripts/setup_m01.py` wählen. Das Skript importiert die Datentabellen, legt Himmel und
+Nach dem Import der Landschaft (Abschnitt 1) im Editor **Werkzeuge → Python-Skript ausführen…**
+(in älteren Versionen unter **Datei**) und `Scripts/setup_m01.py` wählen. Alternativ in die
+Konsole unten `py "C:/peshmerga-game-main/Scripts/setup_m01.py"` eingeben (Pfad anpassen). Das Skript importiert die Datentabellen, legt Himmel und
 Licht an, setzt Lager, Figuren, Höhle, Felsdächer, Drohne, Wache und alle Trigger als
-Platzhalter auf das Gelände, verbindet den Director und speichert die Karte. Die Abschnitte 2
+Platzhalter auf das Gelände (am Hang reichen sie bis in den Boden, damit nichts schwebt), verbindet den Director und speichert die Karte. Die Abschnitte 2
 bis 4 sind dann erledigt. Die Platzhalter tauschst du später gegen Fab-Modelle und MetaHumans.
 
 ## 1. Gelände

@@ -18,6 +18,7 @@ Es kann mehrfach ausgefuehrt werden: Alles, was es selbst gesetzt hat
 Koordinaten in Metern wie im Browser-Prototyp: x nach Osten, z nach Norden,
 Ursprung = Mitte der Landschaft (Lager Berfin).
 """
+import math
 import os
 import unreal
 
@@ -66,15 +67,37 @@ def hit_location(hit):
 
 def ground(x, z):
     """Hoehe des Gelaendes bei x/z (Meter) als Weltposition in cm."""
-    wx, wy = CX + x * 100.0, CY - z * 100.0
+    return ground_world(CX + x * 100.0, CY - z * 100.0)
+
+
+def ground_world(wx, wy):
     hit = unreal.SystemLibrary.line_trace_single(
         world, unreal.Vector(wx, wy, TOP), unreal.Vector(wx, wy, BOTTOM),
         unreal.TraceTypeQuery.TRACE_TYPE_QUERY1, True, [], unreal.DrawDebugTrace.NONE, True)
     if hit:
         p = hit_location(hit)
         return unreal.Vector(wx, wy, p.z)
-    log("Kein Boden bei %.0f/%.0f gefunden" % (x, z))
+    log("Kein Boden bei %.0f/%.0f gefunden" % (wx, wy))
     return unreal.Vector(wx, wy, origin.z)
+
+
+def footprint(x, z, w, d, yaw=0.0):
+    """Niedrigste und hoechste Gelaendehoehe unter einer Grundflaeche (w x d Meter)."""
+    c = ground(x, z)
+    r = math.radians(yaw)
+    hs = []
+    for fx in (-0.5, 0.0, 0.5):
+        for fy in (-0.5, 0.0, 0.5):
+            lx, ly = fx * w * 100.0, fy * d * 100.0
+            hs.append(ground_world(c.x + lx * math.cos(r) - ly * math.sin(r),
+                                   c.y + lx * math.sin(r) + ly * math.cos(r)).z)
+    return min(hs), max(hs)
+
+
+def offset(x, z, dx, yaw):
+    """Punkt dx Meter entlang der gedrehten X-Achse neben x/z, in Prototyp-Metern."""
+    r = math.radians(yaw)
+    return x + dx * math.cos(r), z - dx * math.sin(r)
 
 
 def at(x, z, up=0.0):
@@ -105,7 +128,15 @@ def spawn(cls, loc, rotation=None, folder="Mission01", label=None):
 def block(label, x, z, size, up=None, yaw=0.0, mesh=CUBE, folder="Mission01/Lager", movable=False, pitch=0.0):
     """Platzhalter-Mesh. size in Metern (Breite, Tiefe, Hoehe)."""
     sx, sy, sz = size
-    a = spawn(unreal.StaticMeshActor, at(x, z, (sz * 50.0) if up is None else up), rot(yaw, pitch), folder, label)
+    if up is None and pitch == 0.0:
+        # am Hang bis unter die tiefste Stelle reichen, damit nichts schwebt
+        low, high = footprint(x, z, sx, sy, yaw)
+        sz += (high - low + 30.0) / 100.0
+        c = ground(x, z)
+        loc = unreal.Vector(c.x, c.y, low - 30.0 + sz * 50.0)
+    else:
+        loc = at(x, z, (sz * 50.0) if up is None else up)
+    a = spawn(unreal.StaticMeshActor, loc, rot(yaw, pitch), folder, label)
     comp = a.get_editor_property("static_mesh_component")
     if movable:
         comp.set_mobility(unreal.ComponentMobility.MOVABLE)
@@ -263,9 +294,18 @@ shelters = [(5.8, -72), (22, -118), (10, -165), (22, -212), (10, -258), (22, -30
 
 for i, (x, z) in enumerate(shelters):
     yaw = (i * 37) % 60 - 30
-    block("Felsdach_%d" % (i + 1), x, z, (7, 5.5, 0.9), up=260, yaw=yaw, folder="Mission01/Schlucht")
-    block("Felsdach_%d_Stuetze_A" % (i + 1), x - 2.8, z, (1.6, 1.6, 2.2), folder="Mission01/Schlucht")
-    block("Felsdach_%d_Stuetze_B" % (i + 1), x + 2.8, z, (1.6, 1.6, 2.2), folder="Mission01/Schlucht")
+    # Dach 2,6 m ueber der hoechsten Stelle, Stuetzen vom Boden bis unters Dach
+    low, high = footprint(x, z, 7, 5.5, yaw)
+    roof = block("Felsdach_%d" % (i + 1), x, z, (7, 5.5, 0.9), up=0, yaw=yaw, folder="Mission01/Schlucht")
+    c = ground(x, z)
+    roof.set_actor_location(unreal.Vector(c.x, c.y, high + 260.0), False, False)
+    for side, dx in (("A", -2.8), ("B", 2.8)):
+        px, pz = offset(x, z, dx, yaw)
+        p_low, _ = footprint(px, pz, 1.6, 1.6, yaw)
+        h = (high + 260.0 - p_low + 30.0) / 100.0
+        post = block("Felsdach_%d_Stuetze_%s" % (i + 1, side), px, pz, (1.6, 1.6, h), up=0, yaw=yaw, folder="Mission01/Schlucht")
+        g = ground(px, pz)
+        post.set_actor_location(unreal.Vector(g.x, g.y, p_low - 30.0 + h * 50.0), False, False)
     trigger("Versteck_%d" % (i + 1), unreal.PGShelterVolume, x, z, (3.4, 2.6, 2.0), yaw=yaw)
 
 escape_cp = marker("Fluchtpunkt_Hoehlenausgang", -26, -1, yaw=90)
