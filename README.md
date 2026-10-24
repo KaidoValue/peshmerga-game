@@ -93,11 +93,11 @@ einschalten.
 
 ## Figuren (MetaHumans)
 
-Rojhat, Dara, Azad und Cemal werden mit **MetaHuman Creator** erstellt
+Rojhat, Ava, Azad und Cemal werden mit **MetaHuman Creator** erstellt
 (kostenlos, im Browser oder ab UE 5.6 direkt im Editor). Kleidung im Stil der
 Region (Shal û Shapik, Kefiyeh) gibt es auf Fab oder du passt vorhandene an.
 Die MetaHuman-Blueprints hängst du als *Child Actor* an die
-`PGInteractableActor`-Objekte (Dara, Azad) oder setzt sie als Mesh der Wache.
+`PGInteractableActor`-Objekte (Ava, Azad) oder setzt sie als Mesh der Wache.
 
 ## Sprache: Sorani und Deutsch
 
