@@ -48,6 +48,15 @@ void APGMissionDirector::BeginPlay()
 	{
 		Guard->SetActive(false);
 	}
+	// Die Verwundeten liegen erst nach dem Angriff im Lager.
+	for (APGInteractableActor* W : Wounded)
+	{
+		if (W)
+		{
+			W->SetActorHiddenInGame(true);
+			W->SetActorEnableCollision(false);
+		}
+	}
 	if (DialogueTable)
 	{
 		// Die vier Sätze am Satellitentelefon werden einzeln abgespielt, solange man lauscht.
@@ -279,6 +288,14 @@ void APGMissionDirector::DoImpact()
 			{
 				UGameplayStatics::PopSoundMixModifier(this, MuffleMix);
 			}, 9.f, false);
+		}
+		for (APGInteractableActor* W : Wounded)
+		{
+			if (W)
+			{
+				W->SetActorHiddenInGame(false);
+				W->SetActorEnableCollision(true);
+			}
 		}
 		for (AActor* A : HideAfterAttack)
 		{

@@ -43,6 +43,13 @@ void APGGuard::SetActive(bool bNewActive)
 	bActive = bNewActive;
 	SetActorHiddenInGame(!bActive);
 	Flashlight->SetVisibility(bActive);
+	// Angehängte Platzhalter oder MetaHumans mit ein- und ausblenden.
+	TArray<AActor*> Attached;
+	GetAttachedActors(Attached);
+	for (AActor* A : Attached)
+	{
+		A->SetActorHiddenInGame(!bActive);
+	}
 	ResetDetection();
 }
 
