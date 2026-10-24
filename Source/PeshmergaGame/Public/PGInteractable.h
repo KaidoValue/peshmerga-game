@@ -19,11 +19,11 @@ class PESHMERGAGAME_API IPGInteractable
 
 public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interaktion")
-	bool CanInteract(APGCharacter* Instigator) const;
+	bool CanInteract(APGCharacter* User) const;
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interaktion")
-	FText GetPrompt(APGCharacter* Instigator) const;
+	FText GetPrompt(APGCharacter* User) const;
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interaktion")
-	void Interact(APGCharacter* Instigator);
+	void Interact(APGCharacter* User);
 };
