@@ -32,6 +32,14 @@ alles erzählen oder schweigen.
 Wird Rojhat von der Drohne gesehen, startet er am Höhlenausgang neu. Sieht
 ihn die Wache in der Nacht, startet er an der Hütte A neu.
 
+## Schnellweg: alles per Skript
+
+Nach dem Import der Landschaft (Abschnitt 1) im Editor **Datei → Python-Skript ausführen…**
+und `Scripts/setup_m01.py` wählen. Das Skript importiert die Datentabellen, legt Himmel und
+Licht an, setzt Lager, Figuren, Höhle, Felsdächer, Drohne, Wache und alle Trigger als
+Platzhalter auf das Gelände, verbindet den Director und speichert die Karte. Die Abschnitte 2
+bis 4 sind dann erledigt. Die Platzhalter tauschst du später gegen Fab-Modelle und MetaHumans.
+
 ## 1. Gelände
 
 Wie im README: `Qandil_Berfin.png` importieren. Das Lager liegt in der
