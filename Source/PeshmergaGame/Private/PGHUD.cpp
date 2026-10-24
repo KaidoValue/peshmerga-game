@@ -8,6 +8,8 @@
 #include "Engine/Font.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
+#include "Engine/Engine.h"
+#include "Engine/World.h"
 
 // ---------------------------------------------------------------- Canvas-HUD
 

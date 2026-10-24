@@ -6,6 +6,7 @@
 #include "Components/SpotLightComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Engine/World.h"
 
 APGGuard::APGGuard()
 {
