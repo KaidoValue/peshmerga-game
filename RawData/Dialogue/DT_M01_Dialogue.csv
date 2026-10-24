@@ -1,0 +1,24 @@
+---,Speaker,SpeakerDE,SpeakerCKB,TextDE,TextCKB,Duration
+M01_tea_01,Dara,"Dara","دارا","Guten Morgen, Rojhat. In den Bergen ist Wasser wertvoller als Munition.","بەیانیت باش، ڕۆژهات. لە چیادا ئاو لە فیشەک بەنرخترە.",5.3
+M01_tea_02,Dara,"Dara","دارا","Merk dir das, bevor du dir alles andere merkst.","پێش هەموو شتێکی تر ئەمەت لەبیر بێت.",4.0
+M01_tea_03,Rojhat,"Rojhat","ڕۆژهات","Und was ist das andere?","ئەی شتەکانی تر چین؟",2.7
+M01_tea_04,Dara,"Dara","دارا","Wem du vertrauen kannst. Geh, Azad braucht dich am Funkgerät.","کێ جێگەی متمانەیە. بڕۆ، ئازاد لە بێسیمەکەدا پێویستی پێتە.",4.8
+M01_radio_01,Azad,"Azad","ئازاد","Es rauscht seit drei Tagen. Als würde jemand mithören.","سێ ڕۆژە خشەخش دەکات. وەک ئەوەی کەسێک گوێ بگرێت.",4.4
+M01_radio_02,Rojhat,"Rojhat","ڕۆژهات","Vielleicht sind es nur die Berge.","لەوانەیە تەنها چیاکان بن.",3.2
+M01_radio_03,Cemal,"Heval Cemal","هەڤاڵ جەمال","Baran, Kawa! Ihr zwei geht hinunter ins Tal und holt Vorräte. Sofort.","باران، کاوە! ئێوە دووان بڕۆن بۆ خوارەوەی دۆڵەکە و پێداویستی بهێنن. ئێستا.",5.2
+M01_radio_04,Azad,"Azad","ئازاد","Ohne Funkgerät? Seltsam.","بەبێ بێسیم؟ سەیرە.",2.7
+M01_attack_01,Dara,"Dara","دارا","Drohne! Alle in die Höhle!","درۆن! هەمووان بۆ ئەشکەوتەکە!",2.8
+M01_cave_01,Dara,"Dara","دارا","Zähl nicht die Toten. Zähl die, die du noch tragen kannst.","مردووەکان مەژمێرە. ئەوانە بژمێرە کە هێشتا دەتوانیت هەڵیانبگریت.",4.6
+M01_cave_02,Dara,"Dara","دارا","Draußen liegen noch drei. Hol sie, bevor sie zurückkommt.","سێ کەس هێشتا لە دەرەوەن. بیانهێنە پێش ئەوەی بگەڕێتەوە.",4.5
+M01_escape_01,Dara,"Dara","دارا","Die Drohne kommt zurück. Wir gehen die Schlucht hinauf zur Hirtenhütte.","درۆنەکە دەگەڕێتەوە. بە دۆڵەکەدا دەچینە سەرەوە بۆ کوخی شوانەکە.",5.3
+M01_escape_02,Dara,"Dara","دارا","Bleib unter den Felsen, wenn der rote Kreis kommt. Sie sieht unsere Wärme.","کاتێک بازنە سوورەکە هات، لە ژێر بەردەکاندا بمێنەوە. گەرمیی ئێمە دەبینێت.",5.5
+M01_night_01,Dara,"Dara","دارا","Ruh dich aus. Cemal ist drüben in der anderen Hütte. Er telefoniert seit einer Stunde.","پشوو بدە. جەمال لە کوخەکەی تردایە. یەک کاتژمێرە تەلەفۆن دەکات.",6.1
+M01_listen_01,CemalPhone,"Cemal (am Satellitentelefon)","جەمال (تەلەفۆنی مانگی دەستکرد)","… ja. Es ist erledigt.","… بەڵێ. تەواو بوو.",2.6
+M01_listen_02,CemalPhone,"Cemal (am Satellitentelefon)","جەمال (تەلەفۆنی مانگی دەستکرد)","Die Liste war vollständig. Das Lager war nicht unser Problem.","لیستەکە تەواو بوو. ئۆردوگاکە کێشەی ئێمە نەبوو.",4.8
+M01_listen_03,CemalPhone,"Cemal (am Satellitentelefon)","جەمال (تەلەفۆنی مانگی دەستکرد)","Nein, niemand hat Fragen gestellt.","نەخێر، کەس پرسیاری نەکرد.",3.3
+M01_listen_04,CemalPhone,"Cemal (am Satellitentelefon)","جەمال (تەلەفۆنی مانگی دەستکرد)","Sagen Sie Direktorat 7, der nächste Teil folgt wie besprochen.","بە بەڕێوەبەرایەتی ٧ بڵێ، بەشی داهاتوو وەک ڕێککەوتین دێت.",4.8
+M01_tell_01,Rojhat,"Rojhat","ڕۆژهات","Cemal hat telefoniert. Er wusste von dem Angriff.","جەمال تەلەفۆنی دەکرد. ئەو لە هێرشەکە ئاگادار بوو.",4.1
+M01_tell_02,Dara,"Dara","دارا","…","…",1.5
+M01_tell_03,Dara,"Dara","دارا","Sag das niemandem sonst. Hörst du? Niemandem.","بە کەسی تری مەڵێ. دەبیستیت؟ بە هیچ کەس.",3.9
+M01_silent_01,Rojhat,"Rojhat","ڕۆژهات","Nichts. Ich bin nur müde.","هیچ. تەنها ماندووم.",2.8
+M01_silent_02,Dara,"Dara","دارا","Dann schlaf. Morgen wird schwerer.","کەواتە بخەوە. سبەینێ قورسترە.",3.3

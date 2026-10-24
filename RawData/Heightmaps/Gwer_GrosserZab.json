@@ -1,0 +1,19 @@
+{
+  "name": "Gwer_GrosserZab",
+  "center_lat": 36.045,
+  "center_lon": 43.48,
+  "size_m": 4000,
+  "resolution": 1009,
+  "meters_per_pixel": 3.968,
+  "min_elevation_m": 190.8,
+  "max_elevation_m": 259.4,
+  "ue_landscape_scale": {
+    "X": 396.83,
+    "Y": 396.83,
+    "Z": 13.4
+  },
+  "ue_location_z_cm": 0.0,
+  "source": "AWS Terrain Tiles (Terrarium), based on SRTM ~30 m; bicubically upsampled",
+  "north": "top of image (-Y in Unreal by default import)",
+  "note": "Gebiet um Gwer am Grossen Zab. Lage der Stellung im Editor festlegen."
+}

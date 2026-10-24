@@ -1,0 +1,21 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "5.5",
+	"Category": "",
+	"Description": "Peshmerga – Zwei Wege. Story-Kampagne im Zagros-Gebirge.",
+	"Modules": [
+		{
+			"Name": "PeshmergaGame",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [ "Engine", "UMG" ]
+		}
+	],
+	"Plugins": [
+		{ "Name": "EnhancedInput", "Enabled": true },
+		{ "Name": "ModelingToolsEditorMode", "Enabled": true, "TargetAllowList": [ "Editor" ] },
+		{ "Name": "Water", "Enabled": true },
+		{ "Name": "Landmass", "Enabled": true },
+		{ "Name": "ProceduralContentGeneration", "Enabled": true }
+	]
+}

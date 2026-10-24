@@ -1,0 +1,19 @@
+{
+  "name": "Shingal_Suedhang",
+  "center_lat": 36.3881,
+  "center_lon": 41.805,
+  "size_m": 4000,
+  "resolution": 1009,
+  "meters_per_pixel": 3.968,
+  "min_elevation_m": 812.6,
+  "max_elevation_m": 1355.4,
+  "ue_landscape_scale": {
+    "X": 396.83,
+    "Y": 396.83,
+    "Z": 106.02
+  },
+  "ue_location_z_cm": 0.0,
+  "source": "AWS Terrain Tiles (Terrarium), based on SRTM ~30 m; bicubically upsampled",
+  "north": "top of image (-Y in Unreal by default import)",
+  "note": "Peshmerga-Stellung in der Bildmitte, Suedhang faellt nach unten (Sueden) ab. Cilmera-Gipfel ca. 4,7 km oestlich, ausserhalb und keine Kampfzone."
+}
