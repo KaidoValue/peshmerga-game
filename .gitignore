@@ -16,3 +16,7 @@ Saved/
 Plugins/*/Binaries/
 Plugins/*/Intermediate/
 .DS_Store
+
+# Grosse Modelldatei, laedt Scripts/setup_vegetation.py selbst von Poly Haven
+RawData/Models/tree_small_02/tree_small_02.bin
+__pycache__/

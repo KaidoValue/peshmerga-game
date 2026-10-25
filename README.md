@@ -48,6 +48,7 @@ Beim ersten Start fragt Unreal, ob es die Module bauen soll: **Ja**.
 | `Source/PeshmergaGame` | C++: Spielfigur, Interaktion, Missionsablauf, Drohne, Wache, HUD, Speichern |
 | `Config` | Grafik (Lumen, Nanite, Raytracing, DX12), Sprachen Deutsch und Sorani |
 | `RawData/Heightmaps` | Echte Höhendaten als 16-Bit-PNG für die Landschaft, mit Skalierung als JSON |
+| `RawData/Models` | Felsen, Büsche, Gras, Baum (glTF, Poly Haven, CC0) |
 | `RawData/Dialogue` | Alle Dialoge und Oberflächentexte von Mission 01 auf Deutsch und Sorani (CSV) |
 | `Docs/Mission01.md` | Wie du die Karte von Mission 01 aufbaust und die Mission verbindest |
 
@@ -90,6 +91,19 @@ steilen Hängen, Geröll in Rinnen) bringt am meisten Realismus. Danach Bäume
 und Steine mit **PCG** (*Procedural Content Generation*, im Projekt schon
 aktiviert) oder dem Foliage-Werkzeug verteilen und für alles **Nanite**
 einschalten.
+
+## Felsen, Büsche, Gras und Bäume
+
+`Scripts/setup_vegetation.py` verteilt echte Fotoscan-Modelle (Poly Haven, CC0,
+liegen in `RawData/Models`) auf der Karte `M01_Qandil`:
+
+1. Karte `M01_Qandil` öffnen.
+2. *Werkzeuge → Python-Skript ausführen…* → `Scripts/setup_vegetation.py`.
+3. Beim ersten Mal ein paar Minuten warten (Import, Nanite, Download des Baums).
+
+Felsen kommen an steile Hänge, Büsche und Gras auf flache Stellen, Bäume nur
+vereinzelt. Lager, Talweg, Felsdächer und Hirtenhütten bleiben frei. Nochmal
+ausführen ersetzt die alte Verteilung.
 
 ## Figuren (MetaHumans)
 
